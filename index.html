@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Pixel Art Editor</title>
+    <style>
+        #pixel-canvas {
+            border: 1px solid black;
+        }
+
+        .pixel {
+            width: 20px;
+            height: 20px;
+            border: 1px solid black;
+        }
+    </style>
+</head>
+<body>
+    <div id="pixel-canvas"></div>
+    <input type="color" id="color-picker">
+    <button id="clear-canvas">Clear Canvas</button>
+    <script>
+        const pixelCanvas = document.getElementById('pixel-canvas');
+        const colorPicker = document.getElementById('color-picker');
+        const clearButton = document.getElementById('clear-canvas');
+
+        function makeGrid(gridSize) {
+            for (let i = 0; i < gridSize; i++) {
+                const row = document.createElement('tr');
+                for (let j = 0; j < gridSize; j++) {
+                    const cell = document.createElement('td');
+                    cell.classList.add('pixel');
+                    row.appendChild(cell);
+                }
+                pixelCanvas.appendChild(row);
+            }
+        }
+
+        function colorPixel(event) {
+            event.target.style.backgroundColor = colorPicker.value;
+        }
+
+        function clearCanvas() {
+            const pixels = document.querySelectorAll('.pixel');
+            pixels.forEach(pixel => {
+                pixel.style.backgroundColor = 'white';
+            });
+        }
+
+        // Initial grid size
+        makeGrid(20);
+
+        // Event listeners
+        pixelCanvas.addEventListener('click', colorPixel);
+        clearButton.addEventListener('click', clearCanvas);
+    </script>
+</body>
+</html>
